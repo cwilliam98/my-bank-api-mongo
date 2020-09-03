@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 const app = express();
 const params = dotenv.config();
-console.log(params);
+
 (async () => {
   try {
     await mongoose.connect(
@@ -23,6 +23,6 @@ console.log(params);
 app.use(express.json());
 app.use('/account', accountsRouter);
 
-app.listen('8080', () => {
-  console.log('App listen on port 8080');
+app.listen(params.parsed.PORT, () => {
+  console.log('App listen on port 3000');
 });
