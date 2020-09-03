@@ -23,6 +23,6 @@ const params = dotenv.config();
 app.use(express.json());
 app.use('/account', accountsRouter);
 
-app.listen('3000', () => {
-  console.log('App listen on port 3000');
+app.listen('8080', () => {
+  console.log('App listen on port 8080');
 });
