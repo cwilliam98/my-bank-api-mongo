@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 const app = express();
 const params = dotenv.config();
-
+console.log(params);
 (async () => {
   try {
     await mongoose.connect(
