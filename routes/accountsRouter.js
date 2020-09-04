@@ -206,6 +206,33 @@ accountsRouter.post('/', async (req, res, next) => {
   }
 });
 
+accountsRouter.patch('/depositBalance', async (req, res, next) => {
+  try {
+    const accountToUpdate = req.body;
+    if (
+      !accountToUpdate.agencia ||
+      !accountToUpdate.conta ||
+      accountToUpdate.deposito == null
+    ) {
+      throw new Error('Agencia, conta e Balance são obrigatórios');
+    }
+    const account = await accountsModel.findOne({
+      $and: [
+        { agencia: accountToUpdate.agencia },
+        { conta: accountToUpdate.conta },
+      ],
+    });
+    if (!account) {
+      throw new Error('Conta informada não existe!');
+    }
+    account.balance += accountToUpdate.deposito;
+    await account.updateOne(account);
+    res.send(`O saldo é ${account.balance}`);
+  } catch (err) {
+    next(err);
+  }
+});
+
 accountsRouter.put('/depositBalance', async (req, res, next) => {
   try {
     const accountToUpdate = req.body;
